@@ -12,13 +12,7 @@ export default function LoginPage() {
     e.preventDefault();
 
     try {
-      const res = await login(email, password);
-
-      // Save JWT token (basic version)
-      // FUTURE: change to memory storage and httpOnly cookies
-      localStorage.setItem("token", res.data.token);
-
-      // Redirect after login
+      await login(email, password);
       navigate("/deal-lists");
     } catch (err: any) {
       setError("Invalid email or password");
