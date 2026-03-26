@@ -13,7 +13,7 @@ export default function LoginPage() {
 
     try {
       await login(email, password);
-      navigate("/deal-lists");
+      navigate("/dashboard");
     } catch (err: any) {
       setError("Invalid email or password");
     }
