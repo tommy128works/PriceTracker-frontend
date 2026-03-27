@@ -6,10 +6,6 @@ export const setAccessToken = (token: string) => {
   accessToken = token;
 };
 
-export const getAccessToken = () => {
-  return accessToken;
-};
-
 export const api = axios.create({
   baseURL: "http://localhost:8080/api",
   withCredentials: true,

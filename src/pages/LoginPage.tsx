@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { login } from "../api/authApi";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
 export default function LoginPage() {
+  const { setAccessToken } = useAuth();
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -12,7 +15,8 @@ export default function LoginPage() {
     e.preventDefault();
 
     try {
-      await login(email, password);
+      const res = await login(email, password);
+      setAccessToken(res.data.accessToken);
       navigate("/dashboard");
     } catch (err: any) {
       setError("Invalid email or password");
