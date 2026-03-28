@@ -5,3 +5,11 @@ export const login = async (email: string, password: string) => {
   setAccessToken(res.data.accessToken);
   return res;
 };
+
+export const logout = async () => {
+  try {
+    await api.post("/auth/logout", {}, { withCredentials: true });
+  } finally {
+    setAccessToken(null);
+  }
+};
