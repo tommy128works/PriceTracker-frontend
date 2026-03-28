@@ -2,7 +2,7 @@ import axios from "axios";
 
 let accessToken: string | null = null;
 
-export const setAccessToken = (token: string) => {
+export const setAccessToken = (token: string | null) => {
   accessToken = token;
 };
 
@@ -24,15 +24,19 @@ api.interceptors.response.use(
   async (error) => {
     if (error.response?.status === 401) {
       try {
+        const originalRequest = error.config;
+        if (originalRequest.url.includes("/auth/refresh")) {
+          return Promise.reject(error);
+        }
         const refreshRes = await axios.post(
-          "http://localhost:8080/api/auth/refresh",
+          "/auth/refresh",
           {},
           { withCredentials: true },
         );
-        console.log("Token refreshed");
-        setAccessToken(refreshRes.data.accessToken);
-        error.config.headers.Authorization = `Bearer ${refreshRes.data.accessToken}`;
-        return axios(error.config);
+        const newToken = refreshRes.data.accessToken;
+        setAccessToken(newToken);
+        error.config.headers.Authorization = `Bearer ${newToken}`;
+        return axios(originalRequest);
       } catch (refreshError) {
         window.location.href = "/login";
       }

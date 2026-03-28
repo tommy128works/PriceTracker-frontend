@@ -6,9 +6,11 @@ type Props = {
 };
 
 export default function ProtectedRoute({ children }: Props) {
-  const { accessToken } = useAuth();
+  const { accessToken, loading } = useAuth();
 
-  if (!accessToken) {
+  if (loading) return <div>Loading...</div>;
+
+  if (!loading && !accessToken) {
     return <Navigate to="/login" replace />;
   }
 
