@@ -5,13 +5,13 @@ type Props = {
   children: React.ReactNode;
 };
 
-export default function ProtectedRoute({ children }: Props) {
+export default function PublicRoute({ children }: Props) {
   const { accessToken, loading } = useAuth();
 
   if (loading) return <div>Loading...</div>;
 
-  if (!accessToken) {
-    return <Navigate to="/login" replace />;
+  if (accessToken) {
+    return <Navigate to="/dashboard" replace />;
   }
 
   return children;
