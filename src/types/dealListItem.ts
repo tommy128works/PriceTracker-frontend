@@ -1,5 +1,5 @@
 export type DealListItem = {
-    dealId: number;
-    listId: number;
-    note?: string;
+  dealId: number;
+  listId: number;
+  note?: string;
 };

@@ -16,8 +16,8 @@ export default function DashboardPage() {
     <div className="dashboard">
       <h1>Welcome to your Dashboard</h1>
       <nav>
-        <Link to="/profile">Profile</Link> |
-        <button onClick={handleLogout}>Logout</button>
+        <button onClick={handleLogout}>Logout</button> |
+        <Link to="/deal-lists">Deal Lists</Link>
       </nav>
     </div>
   );
