@@ -42,7 +42,7 @@ export default function DealListsPage() {
 
   const handleDeleteList = async (listId: number) => {
     await deleteDealList(listId);
-    // fetchLists();
+    setLists((prev) => prev.filter((list) => list.id !== listId));
   };
 
   return (
