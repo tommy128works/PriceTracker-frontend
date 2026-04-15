@@ -6,9 +6,21 @@ import {
   deleteDealList,
 } from "../api/dealListApi";
 import type { DealList } from "../types/dealList/dealList";
+import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../api/authApi";
+import { useAuth } from "../hooks/useAuth";
 
 export default function DealListsPage() {
+  const navigate = useNavigate();
   const [lists, setLists] = useState<DealList[]>([]);
+  const { setAccessToken } = useAuth();
+
+  const handleLogout = async () => {
+    await logout();
+    setAccessToken(null);
+    navigate("/login");
+    console.log("Logged out, go to /");
+  };
 
   const fetchLists = async () => {
     try {
@@ -47,6 +59,10 @@ export default function DealListsPage() {
 
   return (
     <div style={{ padding: "20px" }}>
+      <nav>
+        <button onClick={handleLogout}>Logout</button> |
+        <Link to="/dashboard">Dashboard</Link>
+      </nav>
       <h1>📋 Your Deal Lists</h1>
 
       <button onClick={handleCreateList} style={{ marginBottom: "20px" }}>
