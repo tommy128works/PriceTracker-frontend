@@ -5,11 +5,10 @@ import {
   updateDealList,
   deleteDealList,
 } from "../api/dealListApi";
-import type { DealList } from "../types/dealList";
+import type { DealList } from "../types/dealList/dealList";
 
 export default function DealListsPage() {
   const [lists, setLists] = useState<DealList[]>([]);
-  const [loading, setLoading] = useState(true);
 
   const fetchLists = async () => {
     try {
@@ -17,8 +16,6 @@ export default function DealListsPage() {
       setLists(data);
     } catch (err) {
       console.error(err);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -29,9 +26,10 @@ export default function DealListsPage() {
   const handleCreateList = async () => {
     const name = prompt("Enter list name:");
     if (!name) return;
+    const newList = await createDealList({ name });
+    setLists((prev) => [...prev, newList]);
 
-    await createDealList(name);
-    fetchLists();
+    // fetchLists();
   };
 
   const handleUpdateList = async (listId: number) => {
@@ -39,15 +37,13 @@ export default function DealListsPage() {
     if (!name) return;
 
     await updateDealList(listId, name);
-    fetchLists();
-  }
+    // fetchLists();
+  };
 
   const handleDeleteList = async (listId: number) => {
     await deleteDealList(listId);
-    fetchLists();
+    // fetchLists();
   };
-
-  if (loading) return <p>Loading...</p>;
 
   return (
     <div style={{ padding: "20px" }}>
