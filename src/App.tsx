@@ -7,6 +7,7 @@ import DashboardPage from "./pages/DashboardPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
 import DealListsPage from "./pages/DealListsPage";
+import DealListDetailPage from "./pages/DealListDetailPage";
 
 function App() {
   return (
@@ -49,6 +50,14 @@ function App() {
           element={
             <ProtectedRoute>
               <DealListsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/deal-lists/:id"
+          element={
+            <ProtectedRoute>
+              <DealListDetailPage />
             </ProtectedRoute>
           }
         />

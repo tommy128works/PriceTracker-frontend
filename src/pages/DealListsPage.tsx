@@ -79,7 +79,10 @@ export default function DealListsPage() {
             padding: "15px",
             marginBottom: "20px",
             borderRadius: "8px",
+            cursor: "pointer",
+            color: "blue",
           }}
+          onClick={() => navigate(`/deal-lists/${list.id}`)}
         >
           <h2>{list.name}</h2>
           <button onClick={() => handleUpdateList(list.id)}>
