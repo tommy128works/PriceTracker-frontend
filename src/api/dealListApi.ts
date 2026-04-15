@@ -1,7 +1,7 @@
 import { api } from "./client";
-import type { DealList } from "../types/dealList/dealList";
 import type { CreateDealListRequest } from "../types/dealList/createDealListRequest";
 import type { DealListView } from "../types/dealList/dealListView";
+import type { UpdateDealListRequest } from "../types/dealList/updateDealListRequest";
 
 export const createDealList = async (
   data: CreateDealListRequest,
@@ -16,10 +16,9 @@ export const getDealLists = async (): Promise<DealListView[]> => {
 };
 
 export const updateDealList = async (
-  listId: number,
-  name: string,
-): Promise<DealList> => {
-  const res = await api.put(`/deal-lists/${listId}`, { name });
+  data: UpdateDealListRequest,
+): Promise<DealListView> => {
+  const res = await api.put(`/deal-lists/${data.id}`, { name: data.name });
   return res.data;
 };
 

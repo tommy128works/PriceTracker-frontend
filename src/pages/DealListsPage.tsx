@@ -28,16 +28,16 @@ export default function DealListsPage() {
     if (!name) return;
     const newList = await createDealList({ name });
     setLists((prev) => [...prev, newList]);
-
-    // fetchLists();
   };
 
   const handleUpdateList = async (listId: number) => {
     const name = prompt("Enter new list name:");
     if (!name) return;
 
-    await updateDealList(listId, name);
-    // fetchLists();
+    const updatedList = await updateDealList({ id: listId, name });
+    setLists((prev) =>
+      prev.map((list) => (list.id === listId ? updatedList : list)),
+    );
   };
 
   const handleDeleteList = async (listId: number) => {
@@ -65,12 +65,13 @@ export default function DealListsPage() {
             borderRadius: "8px",
           }}
         >
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <h2>{list.name}</h2>
-            <button onClick={() => handleDeleteList(list.id)}>
-              ❌ Delete List
-            </button>
-          </div>
+          <h2>{list.name}</h2>
+          <button onClick={() => handleUpdateList(list.id)}>
+            ✏️ Edit List
+          </button>
+          <button onClick={() => handleDeleteList(list.id)}>
+            ❌ Delete List
+          </button>
         </div>
       ))}
     </div>
