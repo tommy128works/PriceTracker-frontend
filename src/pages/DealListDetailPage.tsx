@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   getDealLists,
   // addDealToList,
   // deleteDealFromList,
 } from "../api/dealListApi";
+import { logout } from "../api/authApi";
+import { useAuth } from "../hooks/useAuth";
 
 type DealListItem = {
   dealId: number;
@@ -13,11 +15,21 @@ type DealListItem = {
 };
 
 export default function DealListDetailPage() {
+  const navigate = useNavigate();
+  const { setAccessToken } = useAuth();
+
   const { id } = useParams();
   const listId = Number(id);
 
   const [items, setItems] = useState<DealListItem[]>([]);
   const [listName, setListName] = useState("");
+
+  const handleLogout = async () => {
+      await logout();
+      setAccessToken(null);
+      navigate("/login");
+      console.log("Logged out, go to /");
+    };
 
   // fetch single list
   const fetchList = async () => {
@@ -51,6 +63,10 @@ export default function DealListDetailPage() {
 
   return (
     <div style={{ padding: 20 }}>
+      <nav>
+        <button onClick={handleLogout}>Logout</button> |
+        <Link to="/dashboard">Dashboard</Link>
+      </nav>
       <h1>📁 {listName}</h1>
 
       <button onClick={handleAdd}>➕ Add Deal</button>
