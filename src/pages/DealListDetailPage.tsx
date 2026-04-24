@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   createDealListItem,
   getDealListItems,
+  updateDealListItem,
   deleteDealListItem,
 } from "../api/dealListItemApi";
 import { logout } from "../api/authApi";
@@ -62,7 +63,16 @@ export default function DealListDetailPage() {
     setItems((prev) => [...prev, newDealListItem]);
   };
 
-  const handleDelete = async (dealId: number) => {
+  const handleUpdateItem = async (itemId: number) => {
+    const note = prompt("New note") || "";
+
+    const updatedItem = await updateDealListItem({ note }, listId, itemId);
+    setItems((prev) =>
+      prev.map((item) => (item.dealId === itemId ? updatedItem : item)),
+    );
+  };
+
+  const handleDeleteItem = async (dealId: number) => {
     await deleteDealListItem(listId, dealId);
     setItems((prev) => prev.filter((item) => item.dealId !== dealId));
   };
@@ -90,7 +100,8 @@ export default function DealListDetailPage() {
             Name: {item.name}
             <br />
             Note: {item.note}
-            <button onClick={() => handleDelete(item.dealId)}>❌</button>
+            <button onClick={() => handleDeleteItem(item.dealId)}>❌</button>
+            <button onClick={() => handleUpdateItem(item.dealId)}>edit</button>
           </li>
         ))}
       </ul>
