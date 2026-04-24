@@ -16,3 +16,10 @@ export const getDealListItems = async (
   const res = await api.get(`/deal-lists/${listId}/items`);
   return res.data;
 };
+
+export const deleteDealListItem = async (
+  listId: number,
+  itemId: number,
+): Promise<void> => {
+  await api.delete(`/deal-lists/${listId}/items/${itemId}`);
+};

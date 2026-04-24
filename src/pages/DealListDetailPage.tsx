@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
-  getDealListItems,
   createDealListItem,
-  // deleteDealFromList,
+  getDealListItems,
+  deleteDealListItem,
 } from "../api/dealListItemApi";
 import { logout } from "../api/authApi";
 import { useAuth } from "../hooks/useAuth";
@@ -63,8 +63,8 @@ export default function DealListDetailPage() {
   };
 
   const handleDelete = async (dealId: number) => {
-    // await deleteDealFromList(listId, dealId);
-    // fetchList();
+    await deleteDealListItem(listId, dealId);
+    setItems((prev) => prev.filter((item) => item.dealId !== dealId));
   };
 
   return (
