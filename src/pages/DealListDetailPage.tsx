@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   getDealListItems,
-  // addDealToList,
+  createDealListItem,
   // deleteDealFromList,
 } from "../api/dealListItemApi";
 import { logout } from "../api/authApi";
 import { useAuth } from "../hooks/useAuth";
 import type { DealListItemView } from "../types/dealListItem/dealListItemView";
+import type { Unit } from "../types/unit";
 
 export default function DealListDetailPage() {
   const navigate = useNavigate();
@@ -37,16 +38,28 @@ export default function DealListDetailPage() {
 
   useEffect(() => {
     fetchItems();
-  }, [id]);
+  }, []);
 
   const handleAdd = async () => {
-    const dealId = prompt("Deal ID?");
-    const note = prompt("Note?");
+    const name = prompt("Deal name?") || "";
+    const amountCents = prompt("Amount in cents?") || "0";
+    const currency = "CAD";
+    const amount = prompt("Amount?") || "0";
+    const unit = (prompt("Unit? (EACH, G, ML)") || "EACH") as Unit;
+    const note = prompt("Note?") || "";
 
-    if (!dealId) return;
-
-    // await addDealToList(listId, Number(dealId), note || "");
-    // fetchList();
+    const newDealListItem = await createDealListItem(
+      {
+        name,
+        amountCents: Number(amountCents),
+        currency,
+        amount: Number(amount),
+        unit,
+        note,
+      },
+      listId,
+    );
+    setItems((prev) => [...prev, newDealListItem]);
   };
 
   const handleDelete = async (dealId: number) => {
@@ -66,7 +79,14 @@ export default function DealListDetailPage() {
 
       <ul>
         {items.map((item) => (
-          <li key={item.dealId}>
+          <li
+            key={item.dealId}
+            style={{
+              border: "1px solid gray",
+              padding: "12px",
+              borderRadius: "6px",
+            }}
+          >
             Name: {item.name}
             <br />
             Note: {item.note}
