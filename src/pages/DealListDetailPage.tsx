@@ -1,18 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
-  getDealLists,
+  getDealListItems,
   // addDealToList,
   // deleteDealFromList,
-} from "../api/dealListApi";
+} from "../api/dealListItemApi";
 import { logout } from "../api/authApi";
 import { useAuth } from "../hooks/useAuth";
-
-type DealListItem = {
-  dealId: number;
-  listId: number;
-  note?: string;
-};
+import type { DealListItemView } from "../types/dealListItem/dealListItemView";
 
 export default function DealListDetailPage() {
   const navigate = useNavigate();
@@ -21,29 +16,27 @@ export default function DealListDetailPage() {
   const { id } = useParams();
   const listId = Number(id);
 
-  const [items, setItems] = useState<DealListItem[]>([]);
+  const [items, setItems] = useState<DealListItemView[]>([]);
   const [listName, setListName] = useState("");
 
   const handleLogout = async () => {
-      await logout();
-      setAccessToken(null);
-      navigate("/login");
-      console.log("Logged out, go to /");
-    };
+    await logout();
+    setAccessToken(null);
+    navigate("/login");
+    console.log("Logged out, go to /");
+  };
 
-  // fetch single list
-  const fetchList = async () => {
-    const lists = await getDealLists();
-    const list = lists.find((l) => l.id === listId);
-
-    if (list) {
-      // setItems(list.items);
-      setListName(list.name);
+  const fetchItems = async () => {
+    try {
+      const data = await getDealListItems(listId);
+      setItems(data);
+    } catch (error) {
+      console.error("Error fetching deal list items:", error);
     }
   };
 
   useEffect(() => {
-    fetchList();
+    fetchItems();
   }, [id]);
 
   const handleAdd = async () => {
@@ -53,12 +46,12 @@ export default function DealListDetailPage() {
     if (!dealId) return;
 
     // await addDealToList(listId, Number(dealId), note || "");
-    fetchList();
+    // fetchList();
   };
 
   const handleDelete = async (dealId: number) => {
     // await deleteDealFromList(listId, dealId);
-    fetchList();
+    // fetchList();
   };
 
   return (
@@ -74,7 +67,9 @@ export default function DealListDetailPage() {
       <ul>
         {items.map((item) => (
           <li key={item.dealId}>
-            Deal #{item.dealId} — {item.note}
+            Name: {item.name}
+            <br />
+            Note: {item.note}
             <button onClick={() => handleDelete(item.dealId)}>❌</button>
           </li>
         ))}

@@ -5,14 +5,14 @@ import {
   updateDealList,
   deleteDealList,
 } from "../api/dealListApi";
-import type { DealList } from "../types/dealList/dealList";
+import type { DealListView } from "../types/dealList/dealListView";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../api/authApi";
 import { useAuth } from "../hooks/useAuth";
 
 export default function DealListsPage() {
   const navigate = useNavigate();
-  const [lists, setLists] = useState<DealList[]>([]);
+  const [lists, setLists] = useState<DealListView[]>([]);
   const { setAccessToken } = useAuth();
 
   const handleLogout = async () => {
