@@ -19,7 +19,6 @@ export default function DealListDetailPage() {
   const listId = Number(id);
 
   const [items, setItems] = useState<DealListItemView[]>([]);
-  const [listName, setListName] = useState("");
 
   const handleLogout = async () => {
     await logout();
@@ -83,7 +82,7 @@ export default function DealListDetailPage() {
         <button onClick={handleLogout}>Logout</button> |
         <Link to="/dashboard">Dashboard</Link>
       </nav>
-      <h1>📁 {listName}</h1>
+      <h1>📁</h1>
 
       <button onClick={handleAdd}>➕ Add Deal</button>
 
