@@ -1,5 +1,8 @@
 {
   "git": {
     "deploymentEnabled": false
-  }
+  },
+  "routes": [
+    { "src": "/.*", "dest": "/" }
+  ]
 }
