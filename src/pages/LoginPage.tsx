@@ -2,10 +2,11 @@ import { useState } from "react";
 import { login } from "../api/authApi";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import PublicHeader from "../components/PublicHeader";
 
 export default function LoginPage() {
   const { setAccessToken } = useAuth();
-  
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -24,38 +25,41 @@ export default function LoginPage() {
   };
 
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h1>Login</h1>
+    <>
+      <PublicHeader />
+      <div style={{ textAlign: "center", marginTop: "50px" }}>
+        <h1>Login</h1>
 
-      <form onSubmit={handleSubmit} style={{ marginTop: "20px" }}>
-        <div>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            style={{ padding: "10px", marginBottom: "10px", width: "250px" }}
-          />
-        </div>
+        <form onSubmit={handleSubmit} style={{ marginTop: "20px" }}>
+          <div>
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              style={{ padding: "10px", marginBottom: "10px", width: "250px" }}
+            />
+          </div>
 
-        <div>
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            style={{ padding: "10px", marginBottom: "10px", width: "250px" }}
-          />
-        </div>
+          <div>
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              style={{ padding: "10px", marginBottom: "10px", width: "250px" }}
+            />
+          </div>
 
-        <button type="submit" style={{ padding: "10px 20px" }}>
-          Login
-        </button>
-      </form>
+          <button type="submit" style={{ padding: "10px 20px" }}>
+            Login
+          </button>
+        </form>
 
-      {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
-    </div>
+        {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
+      </div>
+    </>
   );
 }

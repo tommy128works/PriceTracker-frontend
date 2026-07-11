@@ -1,0 +1,26 @@
+.public-header {
+  border-bottom: 1px solid #ddd;
+  padding: 1rem 2rem;
+}
+
+.public-header__nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.public-header__links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.public-header__logo {
+  font-weight: bold;
+  text-decoration: none;
+  color: inherit;
+}
+
+.public-header__links a {
+  text-decoration: none;
+  color: inherit;
+}
