@@ -27,10 +27,10 @@ export default function LoginPage() {
   return (
     <>
       <PublicHeader />
-      <div style={{ textAlign: "center", marginTop: "50px" }}>
+      <div>
         <h1>Login</h1>
 
-        <form onSubmit={handleSubmit} style={{ marginTop: "20px" }}>
+        <form onSubmit={handleSubmit}>
           <div>
             <input
               type="email"
@@ -38,7 +38,6 @@ export default function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              style={{ padding: "10px", marginBottom: "10px", width: "250px" }}
             />
           </div>
 
@@ -49,16 +48,13 @@ export default function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              style={{ padding: "10px", marginBottom: "10px", width: "250px" }}
             />
           </div>
 
-          <button type="submit" style={{ padding: "10px 20px" }}>
-            Login
-          </button>
+          <button type="submit">Login</button>
         </form>
 
-        {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
+        {error && <p>{error}</p>}
       </div>
     </>
   );
