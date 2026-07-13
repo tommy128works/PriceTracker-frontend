@@ -1,31 +1,20 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   createDealListItem,
   getDealListItems,
   updateDealListItem,
   deleteDealListItem,
 } from "../api/dealListItemApi";
-import { logout } from "../api/authApi";
-import { useAuth } from "../hooks/useAuth";
 import type { DealListItemView } from "../types/dealListItem/dealListItemView";
 import type { Unit } from "../types/unit";
+import AppHeader from "../components/AppHeader";
 
 export default function DealListDetailPage() {
-  const navigate = useNavigate();
-  const { setAccessToken } = useAuth();
-
   const { id } = useParams();
   const listId = Number(id);
 
   const [items, setItems] = useState<DealListItemView[]>([]);
-
-  const handleLogout = async () => {
-    await logout();
-    setAccessToken(null);
-    navigate("/login");
-    console.log("Logged out, go to /");
-  };
 
   const fetchItems = async () => {
     try {
@@ -77,33 +66,34 @@ export default function DealListDetailPage() {
   };
 
   return (
-    <div style={{ padding: 20 }}>
-      <nav>
-        <button onClick={handleLogout}>Logout</button> |
-        <Link to="/dashboard">Dashboard</Link>
-      </nav>
-      <h1>📁</h1>
+    <>
+      <AppHeader />
+      <div style={{ padding: 20 }}>
+        <h1>📁</h1>
 
-      <button onClick={handleAdd}>➕ Add Deal</button>
+        <button onClick={handleAdd}>➕ Add Deal</button>
 
-      <ul>
-        {items.map((item) => (
-          <li
-            key={item.dealId}
-            style={{
-              border: "1px solid gray",
-              padding: "12px",
-              borderRadius: "6px",
-            }}
-          >
-            Name: {item.name}
-            <br />
-            Note: {item.note}
-            <button onClick={() => handleDeleteItem(item.dealId)}>❌</button>
-            <button onClick={() => handleUpdateItem(item.dealId)}>edit</button>
-          </li>
-        ))}
-      </ul>
-    </div>
+        <ul>
+          {items.map((item) => (
+            <li
+              key={item.dealId}
+              style={{
+                border: "1px solid gray",
+                padding: "12px",
+                borderRadius: "6px",
+              }}
+            >
+              Name: {item.name}
+              <br />
+              Note: {item.note}
+              <button onClick={() => handleDeleteItem(item.dealId)}>❌</button>
+              <button onClick={() => handleUpdateItem(item.dealId)}>
+                edit
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </>
   );
 }
