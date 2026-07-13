@@ -5,28 +5,15 @@ export default function HomePage() {
   return (
     <>
       <PublicHeader />
-      <div style={{ textAlign: "center", marginTop: "50px" }}>
+      <div>
         <h1>Welcome to Price Tracker</h1>
         <p>Please login or register to continue:</p>
 
-        <div style={{ marginTop: "20px" }}>
-          <Link
-            to="/login"
-            style={{
-              marginRight: "20px",
-              textDecoration: "none",
-              fontWeight: "bold",
-            }}
-          >
-            Login
-          </Link>
-
-          <Link
-            to="/register"
-            style={{ textDecoration: "none", fontWeight: "bold" }}
-          >
-            Register
-          </Link>
+        <div>
+          <Link to="/login">Login</Link>
+        </div>
+        <div>
+          <Link to="/register">Register</Link>
         </div>
       </div>
     </>
