@@ -1,0 +1,29 @@
+.app-header {
+  border-bottom: 1px solid #ddd;
+  padding: 1rem 2rem;
+}
+
+.app-header__nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.app-header__links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.app-header__logo,
+.app-header__links a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.app-header__logo {
+  font-weight: bold;
+}
+
+.app-header__logout {
+  cursor: pointer;
+}
