@@ -11,7 +11,6 @@ export default function AppHeader() {
     await logout();
     setAccessToken(null);
     navigate("/login");
-    console.log("Logged out, go to /");
   };
 
   return (
