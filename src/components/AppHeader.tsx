@@ -22,8 +22,8 @@ export default function AppHeader() {
 
         <div className="app-header__links">
           <Link to="/dashboard">Dashboard</Link>
+          <Link to="/deals">Deals</Link>
           <Link to="/deal-lists">Deal Lists</Link>
-          <Link to="/categories">Categories</Link>
         </div>
 
         <button

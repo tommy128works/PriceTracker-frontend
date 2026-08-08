@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
 import DealListsPage from "./pages/DealListsPage";
 import DealListDetailPage from "./pages/DealListDetailPage";
+import DealsPage from "./pages/DealsPage";
 
 function App() {
   return (
@@ -42,6 +43,14 @@ function App() {
           element={
             <ProtectedRoute>
               <DashboardPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/deals"
+          element={
+            <ProtectedRoute>
+              <DealsPage />
             </ProtectedRoute>
           }
         />
