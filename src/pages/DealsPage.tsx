@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import AppHeader from "../components/AppHeader";
 // import { getDeals } from "../api/dealApi";
 
 // type should be refactored into type folder
@@ -32,20 +33,23 @@ export default function DealsPage() {
   }
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Deals</h1>
+    <>
+      <AppHeader />
+      <div style={{ padding: "20px" }}>
+        <h1>Deals</h1>
 
-      {deals.length === 0 ? (
-        <p>No deals yet.</p>
-      ) : (
-        <ul>
-          {deals.map((deal) => (
-            <li key={deal.id}>
-              <strong>{deal.title}</strong> — ${deal.price.toFixed(2)}
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+        {deals.length === 0 ? (
+          <p>No deals yet.</p>
+        ) : (
+          <ul>
+            {deals.map((deal) => (
+              <li key={deal.id}>
+                <strong>{deal.title}</strong> — ${deal.price.toFixed(2)}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </>
   );
 }
