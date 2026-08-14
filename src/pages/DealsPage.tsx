@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import AppHeader from "../components/AppHeader";
+import AddDealButton from "../components/AddDealButton";
+import AddDealModal from "../components/AddDealModal";
 // import { getDeals } from "../api/dealApi";
 
 // type should be refactored into type folder
@@ -11,32 +13,37 @@ type Deal = {
 
 export default function DealsPage() {
   const [deals, setDeals] = useState<Deal[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [showAddDealModal, setShowAddDealModal] = useState(false);
+  // const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchDeals = async () => {
-      try {
-        const data = await getDeals();
-        setDeals(data);
-      } catch (error) {
-        console.error("Failed to load deals", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchDeals = async () => {
+  //     try {
+  //       const data = await getDeals();
+  //       setDeals(data);
+  //     } catch (error) {
+  //       console.error("Failed to load deals", error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    fetchDeals();
-  }, []);
+  //   fetchDeals();
+  // }, []);
 
-  if (loading) {
-    return <p>Loading deals...</p>;
-  }
+  // if (loading) {
+  //   return <p>Loading deals...</p>;
+  // }
 
   return (
     <>
       <AppHeader />
       <div style={{ padding: "20px" }}>
         <h1>Deals</h1>
+        <AddDealButton onClick={() => setShowAddDealModal(true)} />
+        {showAddDealModal && (
+          <AddDealModal onClose={() => setShowAddDealModal(false)} />
+        )}
 
         {deals.length === 0 ? (
           <p>No deals yet.</p>
