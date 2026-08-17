@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { QUANTITY_UNITS } from "../constants/quantityUnits";
+import { CURRENCY_UNITS } from "../constants/currencyUnits";
 import "./AddDealModal.css";
 
 type AddDealModalProps = {
@@ -10,7 +11,8 @@ export default function AddDealModal({ onClose }: AddDealModalProps) {
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState("");
-  const [unit, setUnit] = useState("g");
+  const [quantityUnit, setQuantityUnit] = useState("g");
+  const [currencyUnit, setCurrencyUnit] = useState("CAD");
   const [note, setNote] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -60,6 +62,13 @@ export default function AddDealModal({ onClose }: AddDealModalProps) {
               onChange={(e) => setPrice(e.target.value)}
               required
             />
+            <select value={currencyUnit} onChange={(e) => setCurrencyUnit(e.target.value)}>
+              {CURRENCY_UNITS.map((unit) => (
+                <option key={unit} value={unit}>
+                  {unit}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div>
@@ -72,7 +81,7 @@ export default function AddDealModal({ onClose }: AddDealModalProps) {
               onChange={(e) => setQuantity(e.target.value)}
               required
             />
-            <select value={unit} onChange={(e) => setUnit(e.target.value)}>
+            <select value={quantityUnit} onChange={(e) => setQuantityUnit(e.target.value)}>
               {QUANTITY_UNITS.map((unit) => (
                 <option key={unit} value={unit}>
                   {unit}
