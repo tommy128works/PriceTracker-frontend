@@ -8,20 +8,20 @@ type AddDealModalProps = {
 };
 
 export default function AddDealModal({ onClose }: AddDealModalProps) {
-  const [title, setTitle] = useState("");
+  const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState("");
   const [quantityUnit, setQuantityUnit] = useState("g");
   const [currencyUnit, setCurrencyUnit] = useState("CAD");
   const [note, setNote] = useState("");
   const [dealDate, setDealDate] = useState("");
+  const [brand, setBrand] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     // Add API call here later
     console.log({
-      title,
       price,
       quantity,
       note,
@@ -43,12 +43,23 @@ export default function AddDealModal({ onClose }: AddDealModalProps) {
 
         <form onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="title">Product</label>
+            <label htmlFor="brand">Brand Name</label>
             <input
-              id="title"
+              id="brand"
               type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              value={brand}
+              onChange={(e) => setBrand(e.target.value)}
+              placeholder="e.g. Kirkland Signature"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="name">Product Name</label>
+            <input
+              id="name"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               required
             />
           </div>
