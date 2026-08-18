@@ -14,6 +14,7 @@ export default function AddDealModal({ onClose }: AddDealModalProps) {
   const [quantityUnit, setQuantityUnit] = useState("g");
   const [currencyUnit, setCurrencyUnit] = useState("CAD");
   const [note, setNote] = useState("");
+  const [dealDate, setDealDate] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,7 +63,10 @@ export default function AddDealModal({ onClose }: AddDealModalProps) {
               onChange={(e) => setPrice(e.target.value)}
               required
             />
-            <select value={currencyUnit} onChange={(e) => setCurrencyUnit(e.target.value)}>
+            <select
+              value={currencyUnit}
+              onChange={(e) => setCurrencyUnit(e.target.value)}
+            >
               {CURRENCY_UNITS.map((unit) => (
                 <option key={unit} value={unit}>
                   {unit}
@@ -81,7 +85,10 @@ export default function AddDealModal({ onClose }: AddDealModalProps) {
               onChange={(e) => setQuantity(e.target.value)}
               required
             />
-            <select value={quantityUnit} onChange={(e) => setQuantityUnit(e.target.value)}>
+            <select
+              value={quantityUnit}
+              onChange={(e) => setQuantityUnit(e.target.value)}
+            >
               {QUANTITY_UNITS.map((unit) => (
                 <option key={unit} value={unit}>
                   {unit}
@@ -96,6 +103,16 @@ export default function AddDealModal({ onClose }: AddDealModalProps) {
               id="note"
               value={note}
               onChange={(e) => setNote(e.target.value)}
+            />
+          </div>
+          <div>
+            <label htmlFor="deal-date">Deal date</label>
+            <input
+              id="deal-date"
+              type="date"
+              value={dealDate}
+              onChange={(e) => setDealDate(e.target.value)}
+              required
             />
           </div>
 
