@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { QUANTITY_UNITS } from "../constants/quantityUnits";
 import { CURRENCY_UNITS } from "../constants/currencyUnits";
+import { CANADA_PROVINCES } from "../constants/provinces";
 import "./AddDealModal.css";
+import { CANADA_CITIES } from "../constants/cities";
 
 type AddDealModalProps = {
   onClose: () => void;
@@ -16,6 +18,11 @@ export default function AddDealModal({ onClose }: AddDealModalProps) {
   const [note, setNote] = useState("");
   const [dealDate, setDealDate] = useState("");
   const [brand, setBrand] = useState("");
+  const [store, setStore] = useState("");
+  const [city, setCity] = useState("");
+  const [province, setProvince] = useState("");
+
+  const cities = province ? (CANADA_CITIES[province] ?? []) : [];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -116,6 +123,7 @@ export default function AddDealModal({ onClose }: AddDealModalProps) {
               onChange={(e) => setNote(e.target.value)}
             />
           </div>
+
           <div>
             <label htmlFor="deal-date">Deal date</label>
             <input
@@ -125,6 +133,54 @@ export default function AddDealModal({ onClose }: AddDealModalProps) {
               onChange={(e) => setDealDate(e.target.value)}
               required
             />
+          </div>
+
+          <div>
+            <label htmlFor="store">Store</label>
+            <input
+              id="store"
+              type="text"
+              value={store}
+              onChange={(e) => setStore(e.target.value)}
+              placeholder="e.g. Walmart"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="province">Province</label>
+            <select
+              id="province"
+              value={province}
+              onChange={(e) => {
+                setProvince(e.target.value);
+                setCity("");
+              }}
+            >
+              <option value="">Select a province</option>
+
+              {CANADA_PROVINCES.map((province) => (
+                <option key={province.value} value={province.value}>
+                  {province.label}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor="city">City</label>
+            <select
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              disabled={!province}
+            >
+              <option value="">Select city</option>
+
+              {cities.map((city) => (
+                <option key={city} value={city}>
+                  {city}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="modal-actions">
